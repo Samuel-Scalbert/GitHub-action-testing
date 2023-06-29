@@ -1,6 +1,9 @@
 name: XML Check
 
-on: push
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   xml-check:
@@ -15,10 +18,23 @@ jobs:
       with:
         python-version: '3.x'
 
+    - name: Get changed files
+      id: git-diff
+      run: |
+        echo "::set-output name=files::$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})"
+
     - name: Checking XML files with xml_check.py
       run: |
         python -m pip install lxml
-        python .github/workflows/xml_check.py
+        python .github/workflows/xml_check.py ${{ steps.git-diff.outputs.files }}
       env:
-          DEFAULT_BRANCH : main
-          GITHUB_TOKEN : ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Revert push if format is incorrect
+      run: |
+        git config user.name "${{ github.actor }}"
+        git config user.email "${{ github.actor }}@users.noreply.github.com"
+        git checkout ${{ github.ref }}
+        git revert -n ${{ github.sha }}
+        git commit -m "Revert format changes" --no-verify
+        git push origin ${{ github.ref }}
