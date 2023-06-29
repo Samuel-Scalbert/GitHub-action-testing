@@ -13,7 +13,7 @@ def check_xml_files():
         try:
             tree = etree.parse(file_path)
             root = tree.getroot()
-            if root.tag != "tei":
+            if root.tag != "TEI":
                 raise Exception(f"File {file_path} does not contain a <tei> tag")
         except Exception as e:
             print(f"Error: {str(e)}", file=sys.stderr)
