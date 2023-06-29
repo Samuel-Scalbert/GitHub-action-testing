@@ -21,8 +21,7 @@ jobs:
       - name: Get changed files
         id: git-diff
         run: |
-          git fetch --depth=2 origin +refs/heads/main
-          echo "files=$(git diff --name-only HEAD^ HEAD)" >> $GITHUB_ENV
+          echo "files=$(git diff --name-only HEAD~1..HEAD)" >> $GITHUB_ENV
 
       - name: Print changed files
         run: |
