@@ -1,6 +1,6 @@
 import os
 import sys
-from bs4 import BeautifulSoup
+from lxml import etree
 
 def check_xml_files():
     xml_files = []
@@ -11,11 +11,10 @@ def check_xml_files():
 
     for file_path in xml_files:
         try:
-            with open(file_path, "r", encoding="utf-8") as file:
-                content = file.read()
-                soup = BeautifulSoup(content, "xml")
-                if not soup.find("tei"):
-                    raise Exception(f"File {file_path} does not contain a <tei> tag")
+            tree = etree.parse(file_path)
+            root = tree.getroot()
+            if root.tag != "tei":
+                raise Exception(f"File {file_path} does not contain a <tei> tag")
         except Exception as e:
             print(f"Error: {str(e)}", file=sys.stderr)
             sys.exit(1)  # Exit with a non-zero code
