@@ -1,0 +1,29 @@
+name: XML Check
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  xml-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Get changed files
+        id: git-diff
+        run: |
+          git fetch --depth=2 origin +refs/heads/main
+          echo "files=$(git diff --name-only HEAD^ HEAD)" >> $GITHUB_ENV
+
+      - name: Print changed files
+        run: |
+          echo "Changed files: ${{ steps.git-diff.outputs.files }}"
