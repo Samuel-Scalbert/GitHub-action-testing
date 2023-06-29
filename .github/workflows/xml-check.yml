@@ -29,3 +29,11 @@ jobs:
           echo "XML check failed. Exiting with a non-zero code."
           exit 1
         fi
+
+    - name: Prevent push if script failed
+      run: |
+        git diff --name-only --exit-code
+        if [ $? -ne 0 ]; then
+          echo "There are changes in the working directory. Exiting with a non-zero code."
+          exit 1
+        fi
