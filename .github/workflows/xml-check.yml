@@ -1,9 +1,9 @@
 name: XML Check
 
 on:
-  push:
+  pull_request:
     paths:
-      - '**/*.xml' # Run the workflow only when XML files are pushed
+      - '**/*.xml' # Run the workflow only when XML files are modified in a pull request
 
 jobs:
   xml-check:
@@ -24,11 +24,12 @@ jobs:
         python .github/workflows/xml_check.py
 
     - name: Prevent push if script failed
+      if: ${{ github.event_name == 'pull_request' }} # Only execute this step for pull requests
       uses: actions/github-script@v4
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
-          const { status } = await github.pulls.listFiles({
+          const { status, data } = await github.pulls.listFiles({
             owner: context.repo.owner,
             repo: context.repo.repo,
             pull_number: context.payload.pull_request.number
