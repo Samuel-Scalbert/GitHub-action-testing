@@ -28,7 +28,7 @@ jobs:
         python -m pip install lxml
         python .github/workflows/xml_check.py ${{ steps.git-diff.outputs.files }}
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.SECRET }}
 
     - name: Revert push if format is incorrect
       run: |
