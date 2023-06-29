@@ -21,7 +21,7 @@ jobs:
     - name: Get changed files
       id: git-diff
       run: |
-        echo "::set-output name=files::$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})"
+        echo "files=$(git diff --name-only)" >> $GITHUB_ENV
 
     - name: Checking XML files with xml_check.py
       run: |
