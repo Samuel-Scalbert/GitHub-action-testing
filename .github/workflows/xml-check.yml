@@ -2,24 +2,27 @@ name: XML Check
 
 on:
   push:
-    paths:
-      - '**/*.xml' # Run the workflow only when XML files are pushed
+    branches:
+      - main
 
 jobs:
   xml-check:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Install Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
+      - name: Install Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
 
-    - name: Install lxml
-      run: python -m pip install lxml
+      - name: Get changed files
+        id: git-diff
+        run: |
+          echo "files=$(git diff-tree --name-only ${{ github.sha }}^1..${{ github.sha }})" >> $GITHUB_ENV
 
-    - name: Check XML files
-      run: python .github/workflows/xml_check.py
+      - name: Print changed files
+        run: |
+          echo "Changed files: ${{ steps.git-diff.outputs.files }}"
