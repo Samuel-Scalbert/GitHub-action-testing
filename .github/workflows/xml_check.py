@@ -11,6 +11,7 @@ def check_xml_files():
                 xml_files.append(os.path.join(root, file))
 
     for file_path in xml_files:
+        print(f"checking this file : {file_path}")
         try:
             tree = etree.parse(file_path)
             root = tree.getroot()
