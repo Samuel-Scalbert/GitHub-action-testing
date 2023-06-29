@@ -23,17 +23,18 @@ jobs:
         python -m pip install lxml
         python .github/workflows/xml_check.py
 
-    - name: Check script status
-      run: |
-        if [ $? -ne 0 ]; then
-          echo "XML check failed. Exiting with a non-zero code."
-          exit 1
-        fi
-
     - name: Prevent push if script failed
-      run: |
-        git diff --name-only --exit-code
-        if [ $? -ne 0 ]; then
-          echo "There are changes in the working directory. Exiting with a non-zero code."
-          exit 1
-        fi
+      uses: actions/github-script@v4
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const { status } = await github.pulls.listFiles({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            pull_number: context.payload.pull_request.number
+          });
+          const hasChanges = status.some(file => file.status !== 'removed');
+          if (hasChanges) {
+            console.log('There are changes in the working directory. Exiting with a non-zero code.');
+            process.exit(1);
+          }
