@@ -25,17 +25,5 @@ jobs:
 
     - name: Prevent push if script failed
       if: ${{ failure() }}
-      uses: actions/github-script@v4
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        script: |
-          const { data } = await github.pulls.listFiles({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            pull_number: context.payload.pull_request.number
-          });
-          const hasChanges = data.some(file => file.status !== 'removed');
-          if (hasChanges) {
-            console.log('There are changes in the working directory. Exiting with a non-zero code.');
-            process.exit(1);
-          }
+      run: exit 1
+
