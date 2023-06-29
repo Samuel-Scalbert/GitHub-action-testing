@@ -19,5 +19,7 @@ def check_xml_files():
             print(f"Error: {str(e)}", file=sys.stderr)
             sys.exit(1)  # Exit with a non-zero code
 
+    print("All XML files contain a <tei> tag.")
+
 if __name__ == "__main__":
     check_xml_files()
