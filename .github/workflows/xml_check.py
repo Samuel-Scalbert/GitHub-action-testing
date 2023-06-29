@@ -1,6 +1,7 @@
 import os
 import sys
 from lxml import etree
+import subprocess
 
 def check_xml_files():
     xml_files = []
@@ -13,11 +14,12 @@ def check_xml_files():
         try:
             tree = etree.parse(file_path)
             root = tree.getroot()
-            print('la pour le root:', root.tag)
-            if root.tag != "TEI":
+            if root.tag != "{http://www.tei-c.org/ns/1.0}TEI":
                 raise Exception(f"File {file_path} does not contain a <tei> tag")
         except Exception as e:
             print(f"Error: {str(e)}", file=sys.stderr)
+            # Revert the changes made to the file
+            subprocess.run(["git", "checkout", "--", file_path])
             sys.exit(1)  # Exit with a non-zero code
 
     print("All XML files contain a <tei> tag.")
