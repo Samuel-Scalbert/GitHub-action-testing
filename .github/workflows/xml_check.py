@@ -16,7 +16,7 @@ def check_xml_files():
             root = tree.getroot()
             print("la", root.tag)
             if root.tag != "TEI":
-                raise Exception(f"File {file_path} does not contain a <tei> tag")
+                raise Exception(f"File {file_path} does not contain a <tei> tag for this file: {file_path}")
         except Exception as e:
             print(f"Error: {str(e)}", file=sys.stderr)
             # Revert the changes made to the file
