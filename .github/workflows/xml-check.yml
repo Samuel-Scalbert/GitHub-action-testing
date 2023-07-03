@@ -41,7 +41,7 @@ jobs:
         run: |
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             echo "Processing $file"
-            output=$(python .github/workflows/get_first_line.py "$file")
+            output=$(python .github/workflows/xml_check.py "$file")
             echo "FIRST_LINES+=First line of $file: $output" >> $GITHUB_STATE
           done
 
