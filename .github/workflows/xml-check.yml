@@ -46,13 +46,12 @@ jobs:
           done
 
       - name: Create Issue on Error
-        if: ${{ failure() }}
         uses: lionelrrivas/github-issue-creator@v1.0.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           title: Missing XML Tags
           body: |
-            ${{ steps.changed-files.outputs.all_changed_files }}
+            ${{ env.MISSING_TAGS }}
             
             First Lines of XML Files:
             ${{ env.FIRST_LINES }}
