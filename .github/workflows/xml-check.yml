@@ -10,6 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     name: Test changed-files
     steps:
+      - name: Access token example
+        run: |
+            echo ${{ secrets.GITHUB_TOKEN }}
+          
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
