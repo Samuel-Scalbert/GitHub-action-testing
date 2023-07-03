@@ -41,12 +41,13 @@ jobs:
             exit_code=$?
             if [ $exit_code -eq 59 ]; then
               missing_tags+="The file $file is missing these tags: $output\n"
+              exit 1
             fi
           done
           echo "::set-output name=missing_tags::$missing_tags"
 
       - name: Create Issue on Error
-        if: ${{ steps.missing-tags.outputs.missing_tags != '' }}
+        if: ${{ failure() }}
         uses: lionelrrivas/github-issue-creator@v1.0.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
