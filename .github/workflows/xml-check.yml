@@ -9,9 +9,9 @@ jobs:
     steps:
       - name: Print a greeting
         env:
-          MY_VAR: "Hi there! My name is"
+          MY_VAR: ${{ github.actor }}
           FIRST_NAME: ${{ github.event_name }}
-          MIDDLE_NAME: "The"
-          LAST_NAME: "Octocat"
+          MIDDLE_NAME: "he :"
+          LAST_NAME: "made a :"
         run: |
-          echo $MY_VAR $FIRST_NAME $MIDDLE_NAME $LAST_NAME
+          echo $MIDDLE_NAME $MY_VAR   $LAST_NAME $FIRST_NAME
