@@ -21,4 +21,4 @@ jobs:
       - name: List all changed files
         run: |
           echo "Changed files:"
-          echo "${{ steps.changed-files.outputs.all_changed_files }}"
+          echo "${{ all_changed_and_modified_files }}"
