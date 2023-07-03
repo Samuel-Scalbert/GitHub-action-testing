@@ -38,10 +38,7 @@ jobs:
             echo "Processing $file"
             output=$(python .github/workflows/xml_check.py "$file")
             exit_code=$?
-            if [ $exit_code -eq 59 ]; then
-              echo "action_state=yellow" >> "$GITHUB_ENV"
-            fi
-          done
+            echo "action_state=yellow" >> "$GITHUB_ENV"
 
       - name: Create Issue on Error
         if: ${{ failure() }}
