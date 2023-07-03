@@ -31,23 +31,28 @@ jobs:
         id: changed-files
         uses: tj-actions/changed-files@v37
 
-      - name: Apply Python script to changed files
+      - name: Run Python script on changed files
+        id: missing-tags
         run: |
+          missing_tags=""
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             echo "Processing $file"
-            python .github/workflows/xml_check.py "$file"
+            output=$(python .github/workflows/xml_check.py "$file")
             exit_code=$?
             if [ $exit_code -eq 59 ]; then
-              exit 1
+              missing_tags+="The file $file is missing these tags: $output\n"
             fi
           done
+          echo "::set-output name=missing_tags::$missing_tags"
 
       - name: Create Issue on Error
-        if: ${{ failure() }}
+        if: ${{ steps.missing-tags.outputs.missing_tags != '' }}
         uses: lionelrrivas/github-issue-creator@v1.0.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          title: Title
-          body: Body
+          title: Missing XML Tags
+          body: ${{ steps.missing-tags.outputs.missing_tags }}
           assignees: |
-            Samuel-Scalbert
+            ${{ github.repository_owner }}
+            ${{ github.actor }}
+
