@@ -12,8 +12,8 @@ jobs:
     steps:
       - name: Access token example
         run: |
-            echo ${{ secrets.ACTION }}
-          
+          echo ${{ secrets.ACTION }}
+
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
@@ -32,21 +32,18 @@ jobs:
         uses: tj-actions/changed-files@v37
 
       - name: Set up environment file
-        run: echo "MISSING_TAGS=" >> $GITHUB_ENV
+        run: |
+          echo "MISSING_TAGS=" >> $GITHUB_STATE
+          echo "FIRST_LINES=" >> $GITHUB_STATE
 
       - name: Run Python script on changed files
-        id: missing-tags
+        id: first-lines
         run: |
-          missing_tags=""
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             echo "Processing $file"
-            output=$(python .github/workflows/xml_check.py "$file")
-            exit_code=$?
-            if [ $exit_code -ne 0 ]; then
-              missing_tags+="The file $file is missing these tags: $output\n"
-            fi
+            output=$(python .github/workflows/get_first_line.py "$file")
+            echo "FIRST_LINES+=First line of $file: $output" >> $GITHUB_STATE
           done
-          echo "::set-output name=missing_tags::$missing_tags"
 
       - name: Create Issue on Error
         if: ${{ failure() }}
@@ -54,7 +51,11 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           title: Missing XML Tags
-          body: ${{ steps.missing-tags.outputs.missing_tags }}
+          body: |
+            ${{ env.MISSING_TAGS }}
+            
+            First Lines of XML Files:
+            ${{ env.FIRST_LINES }}
           assignees: |
             ${{ github.repository_owner }}
             ${{ github.actor }}
