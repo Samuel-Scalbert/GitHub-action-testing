@@ -39,9 +39,15 @@ jobs:
             output=$(python .github/workflows/xml_check.py "$file")
             exit_code=$?
             if [ $exit_code -eq 59 ]; then
-              echo "missing_tags=The file $file is missing these tags: $output" >> "$GITHUB_OUTPUT"
+              echo "The file $file is missing these tags: $output" >> missing_tags.txt
             fi
           done
+
+      - name: Read Missing Tags
+        id: read-missing-tags
+        run: |
+          echo "::set-output name=missing_tags::$(cat missing_tags.txt)"
+          cat missing_tags.txt
 
       - name: Create Issue on Error
         if: ${{ failure() }}
@@ -49,7 +55,9 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           title: Missing XML Tags
-          body: ${{ steps.missing-tags.outputs.missing_tags }}
+          body: |
+            The following files have missing tags:
+            ${{ steps.read-missing-tags.outputs.missing_tags }}
           assignees: |
             ${{ github.repository_owner }}
             ${{ github.actor }}
