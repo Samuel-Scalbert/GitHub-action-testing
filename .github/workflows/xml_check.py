@@ -3,23 +3,20 @@ import sys
 from lxml import etree
 import subprocess
 
-def check_xml_files():
-    xml_files = []
-    for root, dirs, files in os.walk(".", topdown=False):
-        for file in files:
-            if file.endswith(".xml"):
-                xml_files.append(os.path.join(root, file))
-
-    for file_path in xml_files:
-        print(f"checking this file : {file_path}")
-        try:
-            tree = etree.parse(file_path)
-            root = tree.getroot()
-            if root.tag != "{http://www.tei-c.org/ns/1.0}TEI":
-                raise Exception(f"File {file_path} does not contain a <tei> tag")
-        except Exception as e:
-            print(f"Error: {str(e)}")
-    print("All XML files contain a <tei> tag.")
+def check_xml_files(file_path):
+    try:
+        tree = etree.parse(file_path)
+        root = tree.getroot()
+        if root.tag != "{http://www.tei-c.org/ns/1.0}TEI":
+            raise Exception(f"File {file_path} does not contain a <tei> tag")
+        print(f"File {file_path} is valid.")
+    except Exception as e:
+        print(f"Error: {str(e)}")
 
 if __name__ == "__main__":
-    check_xml_files()
+    if len(sys.argv) < 2:
+        print("Please provide the XML file path as a command-line argument.")
+        sys.exit(1)
+
+    file_path = sys.argv[1]
+    check_xml_files(file_path)
