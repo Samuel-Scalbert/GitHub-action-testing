@@ -42,6 +42,6 @@ jobs:
         if: ${{ failure() }}
         uses: dacbd/create-issue-action@main
         with:
-          token: ${{ github.SECRET }}
+          token: ${{ github.GITHUB_TOKEN }}
           title: Simple test issue
           body: my new issue
