@@ -27,12 +27,13 @@ jobs:
         id: changed-files
         uses: tj-actions/changed-files@v37
 
-      - name: Run Python script on changed files
+      - name: Set FIRST_LINES variable
         id: first-lines
         run: |
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             echo "Processing $file"
-            echo "FIRST_LINES+=$(python .github/workflows/xml_check.py $file)" >> $GITHUB_ENV
+            first_line=$(python .github/workflows/xml_check.py $file)
+            echo "FIRST_LINES+=$first_line" >> $GITHUB_ENV
           done
 
       - name: Create Issue on Error
