@@ -52,7 +52,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           title: Missing XML Tags
           body: |
-            ${{ env.MISSING_TAGS }}
+            ${{ steps.changed-files.outputs.all_changed_files }}
             
             First Lines of XML Files:
             ${{ env.FIRST_LINES }}
