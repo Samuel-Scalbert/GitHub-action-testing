@@ -42,5 +42,6 @@ jobs:
         if: ${{ failure() }}
         uses: dacbd/create-issue-action@main
         with:
+          token: ${{ github.DEPENDABOT }}
           title: Simple test issue
           body: my new issue
