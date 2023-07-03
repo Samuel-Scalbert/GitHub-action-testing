@@ -35,24 +35,26 @@ jobs:
         run: echo "MISSING_TAGS=" >> $GITHUB_ENV
 
       - name: Run Python script on changed files
+        id: missing-tags
         run: |
+          missing_tags=""
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             echo "Processing $file"
             output=$(python .github/workflows/xml_check.py "$file")
             exit_code=$?
-            if [ $exit_code -eq 59 ]; then
-              echo "The file $file is missing these tags: $output" >> missing_tags.txt
-              echo "::set-env name=MISSING_TAGS::1"
+            if [ $exit_code -ne 0 ]; then
+              missing_tags+="The file $file is missing these tags: $output\n"
             fi
           done
+          echo "::set-output name=missing_tags::$missing_tags"
 
       - name: Create Issue on Error
-        if: env.MISSING_TAGS == '1'
-        uses: peter-evans/create-issue@v3
+        if: ${{ failure() }}
+        uses: lionelrrivas/github-issue-creator@v1.0.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           title: Missing XML Tags
-          body: |
-            The following files have missing tags:
-            $(cat missing_tags.txt)
-          assignees: ${{ github.repository_owner }}
+          body: ${{ steps.missing-tags.outputs.missing_tags }}
+          assignees: |
+            ${{ github.repository_owner }}
+            ${{ github.actor }}
