@@ -1,20 +1,13 @@
-import os
 import sys
-from lxml import etree
-import subprocess
 
-def check_xml_files(file_path):
+def get_first_line(file_path):
     try:
-        tree = etree.parse(file_path)
-        root = tree.getroot()
-        if root.tag != "{http://www.tei-c.org/ns/1.0}TEI":
-            error_message = f"File {file_path} does not contain a <tei> tag"
-            print(error_message)
-            sys.exit(1)
-        print(f"File {file_path} is valid.")
+        with open(file_path, "r") as file:
+            first_line = file.readline().strip()
+            return first_line
     except Exception as e:
         error_message = str(e)
-        print(f"Error: {error_message}")
+        return error_message
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
@@ -22,4 +15,5 @@ if __name__ == "__main__":
         sys.exit(1)
 
     file_path = sys.argv[1]
-    check_xml_files(file_path)
+    first_line = get_first_line(file_path)
+    print(first_line)
