@@ -8,7 +8,7 @@ jobs:
     steps:
       - name: Set Output Value
         id: set_output
-        run: echo "name=Hello, World!" >> $GITHUB_STATE
+        run: echo "name=Hello, World!" >> $GITHUB_ENV
         
       - name: Use Output Value
         run: echo "The output value is ${{ env.name }}"
