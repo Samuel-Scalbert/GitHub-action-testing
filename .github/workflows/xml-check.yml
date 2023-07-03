@@ -3,7 +3,7 @@ name: XML Check
 on:
   push:
     branches:
-      - main
+      - main  # Replace with your branch name
 
 jobs:
   xml-check:
@@ -21,8 +21,8 @@ jobs:
       - name: Get changed files
         id: git-diff
         run: |
-          echo "files=$(git diff-tree --name-only ${{ github.sha }}^1..${{ github.sha }})" >> $GITHUB_ENV
+          echo "::set-output name=changed_files::$(git diff --name-only HEAD~1 HEAD)"
 
       - name: Print changed files
         run: |
-          echo "Changed files: ${{ steps.git-diff.outputs.files }}"
+          echo "Changed files: ${{ steps.git-diff.outputs.changed_files }}"
