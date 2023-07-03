@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Access token example
         run: |
-            echo ${{ secrets.GITHUB_TOKEN }}
+            echo ${{ secrets.ACTION }}
           
       - uses: actions/checkout@v3
         with:
@@ -46,6 +46,6 @@ jobs:
         if: ${{ failure() }}
         uses: dacbd/create-issue-action@main
         with:
-          token: ${{ github.DEPENDABOT }}
+          token: ${{ github.ACTION }}
           title: Simple test issue
           body: my new issue
