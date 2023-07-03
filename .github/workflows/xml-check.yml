@@ -26,18 +26,19 @@ jobs:
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v37
-        
-      - name: List of all the changed files
-        run: |
-          echo "${{ steps.changed-files.outputs.all_changed_files }}"
-          echo "${{ steps.changed-files.outputs.all_changed_and_modified_files_count }}"
 
       - name: Apply Python script to changed files
         run: |
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             echo "Processing $file"
-            python .github/workflows/xml_check.py "$file"
+            python xml_check.py "$file"
+            exit_code=$?
+            if [ $exit_code -eq 59 ]; then
+              echo "Encountered error in file: $file"
+              exit 1
+            fi
           done
+
       - name: Create Issue on Failed workflow
         if: ${{ failure() }}
         uses: dacbd/create-issue-action@main
