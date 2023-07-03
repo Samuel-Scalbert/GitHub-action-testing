@@ -49,7 +49,9 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           title: Missing XML Tags
-          body: ${{ env.action_state }}
+          body: |
+            ${{ github.repository_owner }}
+            ${{ github.actor }}
           assignees: |
             ${{ github.repository_owner }}
             ${{ github.actor }}
