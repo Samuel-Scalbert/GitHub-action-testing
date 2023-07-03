@@ -18,8 +18,9 @@ jobs:
         id: changed-files
         uses: tj-actions/changed-files@v37
 
-      - name: List all changed files
+      - name: Apply Python script to changed files
         run: |
-          echo "Changed files:"
-          echo "${{ steps.changed-files.outputs.all_changed_files }}"
-          echo "${{ steps.changed-files.outputs.all_changed_and_modified_files_count }}"
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo "Processing $file"
+            python xml_check.py "$file"
+          done
