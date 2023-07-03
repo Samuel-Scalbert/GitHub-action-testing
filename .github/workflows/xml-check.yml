@@ -5,32 +5,7 @@ on:
     branches:
       - main
 
-# -------------------------------
-#  Optionally run on other events
-# -------------------------------
-#  schedule:
-#     - cron: '0 0 * * *'
-#
-#  release:
-#    types: [published]
-#
-#  push:
-#    tags:
-#      - '**'
-#
-# ...and many more
-
-
 jobs:
-  # -------------------------------------------------------------
-  # Using GitHub's API is not supported for push events
-  # -------------------------------------------------------------
-  # 
-  # ----------------------------------------------------------------------------------------------
-  # Using local .git directory
-  # ----------------------------------------------------------------------------------------------
-  # Event `push`: Compare the preceding remote commit -> to the current commit of the main branch 
-  # ----------------------------------------------------------------------------------------------
   job2:
     runs-on: ubuntu-latest  # windows-latest | macos-latest
     name: Test changed-files
@@ -51,9 +26,3 @@ jobs:
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             echo "$file was changed"
           done
-
-      # Example 2: See above
-      ...
-
-      # Example 3: See above
-      ...
