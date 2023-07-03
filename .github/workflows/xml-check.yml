@@ -31,7 +31,7 @@ jobs:
         run: |
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             echo "Processing $file"
-            python .github/workflows/xml_check.pyxml_check.py "$file"
+            python .github/workflows/xml_check.py "$file"
             exit_code=$?
             if [ $exit_code -eq 59 ]; then
               echo "Encountered error in file: $file"
