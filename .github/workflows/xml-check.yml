@@ -40,5 +40,15 @@ jobs:
 
       - name: Create Issue on Error
         if: ${{ failure() }}
-        run:
-          echo "Processing something"
+        uses: dacbd/create-issue-action@main
+        with:
+          token: ${{ github.token }}
+          title: XML files are lacking.
+          body: |
+            ### Context
+            [Failed Run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+            [Codebase](https://github.com/${{ github.repository }}/tree/${{ github.sha }})
+            Workflow name - `${{ github.workflow }}`
+            Job -           `${{ github.job }}`
+            status -        `${{ job.status }}`
+          assignees: ${{ github.actor }}
