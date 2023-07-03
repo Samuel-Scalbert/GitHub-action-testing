@@ -45,6 +45,7 @@ jobs:
             fi
           done
           echo "::set-output name=missing_tags::$missing_tags"
+          echo ${{ steps.missing-tags.outputs.missing_tags }}
 
       - name: Create Issue on Error
         if: ${{ failure() }}
