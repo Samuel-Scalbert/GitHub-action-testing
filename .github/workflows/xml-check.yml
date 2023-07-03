@@ -44,10 +44,10 @@ jobs:
 
       - name: Create Issue on Error
         if: ${{ failure() }}
-        uses: lionelrrivas/github-issue-creator@v1
+        uses: lionelrrivas/github-issue-creator@v1.0.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           title: Title
           body: Body
           assignees: |
-            lionelrrivas
+            Samuel-Scalbert
