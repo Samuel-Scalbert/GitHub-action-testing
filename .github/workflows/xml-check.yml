@@ -36,5 +36,5 @@ jobs:
         run: |
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             echo "Processing $file"
-            python xml_check.py "$file"
+            python .github/workflows/xml_check.py "$file"
           done
