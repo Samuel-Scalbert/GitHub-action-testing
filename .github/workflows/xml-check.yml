@@ -1,28 +1,17 @@
-name: XML Check
+name: Greeting from Mona
 
-on:
-  push:
-    branches:
-      - main  # Replace with your branch name
+on: push
 
 jobs:
-  xml-check:
+  my-job:
+    name: My Job
     runs-on: ubuntu-latest
-
     steps:
-    
-      - name: Get last commit hashes
+      - name: Print a greeting
+        env:
+          MY_VAR: Hi there! My name is
+          FIRST_NAME: Mona
+          MIDDLE_NAME: The
+          LAST_NAME: Octocat
         run: |
-          LAST_COMMIT=$(git log -1 --format=%H)
-          PREVIOUS_COMMIT=$(git log -2 --format=%H | tail -1)
-          echo "LAST_COMMIT=$LAST_COMMIT" >> $GITHUB_ENV
-          echo "PREVIOUS_COMMIT=$PREVIOUS_COMMIT" >> $GITHUB_ENV
-
-      - name: Get changed files
-        id: git-diff
-        run: |
-          echo "changed_files=$(git diff --name-only $PREVIOUS_COMMIT $LAST_COMMIT)" >> $GITHUB_ENV
-
-      - name: Print changed files
-        run: |
-          echo "Changed files: $changed_files"
+          echo $MY_VAR $FIRST_NAME $MIDDLE_NAME $LAST_NAME.
