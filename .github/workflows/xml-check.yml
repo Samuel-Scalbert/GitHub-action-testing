@@ -39,7 +39,7 @@ jobs:
             output=$(python .github/workflows/xml_check.py "$file")
             exit_code=$?
             if [ $exit_code -eq 59 ]; then
-              echo "missing_tags+=The file $file is missing these tags: $output" >> $GITHUB_ENV
+              echo "missing_tags=The file $file is missing these tags: $output" >> "$GITHUB_ENV"
             fi
           done
 
@@ -49,9 +49,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           title: Missing XML Tags
-          body: |
-            The following files have missing tags:
-            ${{ env.missing_tags }}
+          body: ${{ env.missing_tags }}
           assignees: |
             ${{ github.repository_owner }}
             ${{ github.actor }}
