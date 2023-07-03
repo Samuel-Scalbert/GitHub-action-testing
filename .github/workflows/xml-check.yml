@@ -13,5 +13,6 @@ jobs:
           FIRST_NAME: ${{ github.event_name }}
           MIDDLE_NAME: "he :"
           LAST_NAME: "made a :"
+          NAME: ${{ github.github.sha }}
         run: |
-          echo $MIDDLE_NAME $MY_VAR   $LAST_NAME $FIRST_NAME
+          echo $MIDDLE_NAME $MY_VAR $LAST_NAME $FIRST_NAME $NAME
