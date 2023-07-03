@@ -41,8 +41,7 @@ jobs:
         run: |
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             echo "Processing $file"
-            output=$(python .github/workflows/xml_check.py "$file")
-            echo "FIRST_LINES+=First line of $file: $output" >> $GITHUB_ENV
+            echo "FIRST_LINES=python .github/workflows/xml_check.py "$file" >> $GITHUB_ENV
           done
 
       - name: Create Issue on Error
