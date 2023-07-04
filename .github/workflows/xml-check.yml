@@ -24,8 +24,9 @@ jobs:
           python -m pip install bs4 lxml
           
       - name: Get the version of the commits
-      - uses: hsblhsn/version-or-commit-sha@v1
         id: get_version
+        uses: hsblhsn/version-or-commit-sha@v1
+        
 
       - name: Get changed files
         id: changed-files
