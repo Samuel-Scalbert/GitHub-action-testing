@@ -9,7 +9,10 @@ def has_tags(file_path, tags):
             for tag in tags:
                 if not soup.find(tag):
                     all_tags.append(tag)
-            return all_tags
+            if len(all_tags)>1:
+                return all_tags
+            else:
+                return None
     except Exception as e:
         error_message = str(e)
         return error_message
