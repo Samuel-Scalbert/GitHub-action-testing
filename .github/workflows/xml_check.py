@@ -14,7 +14,7 @@ def has_tags(file_path, tags):
         return error_message
 
 if __name__ == "__main__":
-    if len(sys.argv) < 3:
+    if len(sys.argv) < 2:
         print("Please provide the XML file path and tags as command-line arguments.")
         sys.exit(1)
 
