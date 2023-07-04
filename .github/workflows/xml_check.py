@@ -4,7 +4,8 @@ def get_first_line(file_path):
     try:
         with open(file_path, "r") as file:
             first_line = file.readline().strip()
-            return first_line
+            line = first_line + "yo yoy"
+            return line
     except Exception as e:
         error_message = str(e)
         return error_message
