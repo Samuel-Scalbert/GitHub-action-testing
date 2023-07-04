@@ -30,7 +30,7 @@ jobs:
       - name: Set FIRST_LINES variable
         id: first-lines
         run: |
-          first_line=0  # Initialize the variable
+          first_line=""  # Initialize the variable
           for file in  ${{ steps.changed-files.outputs.all_changed_files }}; do
             echo "Processing $file"
             result=$(python .github/workflows/xml_check.py "$file")  # Run the script and capture the output
