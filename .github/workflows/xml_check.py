@@ -3,7 +3,11 @@ import sys
 def get_first_line(file_path):
     try:
         with open(file_path, "r") as file:
-            return file.readline().strip()
+            # Skip the first line if it starts with '<?xml'
+            first_line = next(file).strip()
+            if first_line.startswith('<?xml'):
+                first_line = next(file).strip()
+            return first_line
     except Exception as e:
         error_message = str(e)
         return error_message
