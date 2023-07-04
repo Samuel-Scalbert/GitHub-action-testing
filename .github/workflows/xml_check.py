@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 def has_tags(file_path, tags):
     try:
         with open(file_path, "r") as file:
-            soup = BeautifulSoup(file, "xml", features="xml")
+            soup = BeautifulSoup(file, features="xml")
             for tag in tags:
                 if soup.find(tag):
                     return tag
