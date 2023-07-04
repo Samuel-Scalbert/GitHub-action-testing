@@ -34,7 +34,7 @@ jobs:
           for file in  ${{ steps.changed-files.outputs.all_changed_files }}; do
             echo "Processing $file"
             result=$(python .github/workflows/xml_check.py "$file")  # Run the script and capture the output
-            first_line="${first_line}${result}"  # Add the output value to the variable
+            first_line="${first_line} \n ${result}"  # Add the output value to the variable
             echo "FIRST_LINES=$first_line" >> $GITHUB_ENV
           done
 
