@@ -60,4 +60,3 @@ jobs:
           assignees: |
             ${{ github.repository_owner }}
             ${{ github.actor }}
-
