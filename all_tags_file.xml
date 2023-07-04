@@ -1,0 +1,96 @@
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <abbr>Abbreviation</abbr>
+    <add>Addition</add>
+    <addrLine>Address Line</addrLine>
+    <address>Address</address>
+    <affiliation>Affiliation</affiliation>
+    <analytic>Analytic</analytic>
+    <anchor>Anchor</anchor>
+    <argument>Argument</argument>
+    <att>Attribute</att>
+    <bibl>Bibliography</bibl>
+    <biblStruct>Bibliographic Structure</biblStruct>
+    <body>Body</body>
+    <cell>Cell</cell>
+    <change>Change</change>
+    <choice>Choice</choice>
+    <cit>Citation</cit>
+    <closer>Closer</closer>
+    <date>Date</date>
+    <dateline>Dateline</dateline>
+    <del>Delete</del>
+    <delSpan>Deleted Span</delSpan>
+    <desc>Description</desc>
+    <div>Division</div>
+    <education>Education</education>
+    <eg>Example</eg>
+    <egXML>Example XML</egXML>
+    <elementSpec>Element Specification</elementSpec>
+    <emph>Emphasis</emph>
+    <encodingDesc>Encoding Description</encodingDesc>
+    <event>Event</event>
+    <figure>Figure</figure>
+    <fileDesc>File Description</fileDesc>
+    <floatingText>Floating Text</floatingText>
+    <foreign>Foreign</foreign>
+    <fw>Foreign Word</fw>
+    <gap>Gap</gap>
+    <geo>Geographical Location</geo>
+    <gi>General Identifier</gi>
+    <handShift>Hand Shift</handShift>
+    <head>Header</head>
+    <hi>Highlight</hi>
+    <idno>Identification Number</idno>
+    <imprint>Imprint</imprint>
+    <item>Item</item>
+    <label>Label</label>
+    <lb>Line Break</lb>
+    <licence>Licence</licence>
+    <list>List</list>
+    <location>Location</location>
+    <metamark>Metamark</metamark>
+    <milestone>Milestone</milestone>
+    <moduleRef>Module Reference</moduleRef>
+    <monogr>Monograph</monogr>
+    <name>Name</name>
+    <note>Note</note>
+    <opener>Opener</opener>
+    <org>Organization</org>
+    <orgName>Organization Name</orgName>
+    <p>Paragraph</p>
+    <pb>Page Break</pb>
+    <persName>Person's Name</persName>
+    <person>Person</person>
+    <place>Place</place>
+    <placeName>Place Name</placeName>
+    <postscript>Postscript</postscript>
+    <profileDesc>Profile Description</profileDesc>
+    <pubPlace>Publishing Place</pubPlace>
+    <publicationStmt>Publication Statement</publicationStmt>
+    <publisher>Publisher</publisher>
+    <quote>Quote</quote>
+    <ref>Reference</ref>
+    <relation>Relation</relation>
+    <revisionDesc>Revision Description</revisionDesc>
+    <row>Row</row>
+    <rs>Relation Structure</rs>
+    <salute>Salutation</salute>
+    <schemaSpec>Schema Specification</schemaSpec>
+    <seg>Segment</seg>
+    <sex>Sex</sex>
+    <signed>Signed</signed>
+    <speaker>Speaker</speaker>
+    <specDesc>Specification Description</specDesc>
+    <specList>Specification List</specList>
+    <stamp>Stamp</stamp>
+    <subst>Substitution</subst>
+    <supplied>Supplied</supplied>
+    <table>Table</table>
+    <teiHeader>TEI Header</teiHeader>
+    <term>Term</term>
+    <text>Text</text>
+    <title>Title</title>
+    <titleStmt>Title Statement</titleStmt>
+    <trailer>Trailer</trailer>
+    <unclear>Unclear</unclear>
+</TEI>
