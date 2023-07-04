@@ -3,9 +3,7 @@ import sys
 def get_first_line(file_path):
     try:
         with open(file_path, "r") as file:
-            first_line = file.readline().strip()
-            line = first_line + "yo yoy"
-            return line
+            return file
     except Exception as e:
         error_message = str(e)
         return error_message
