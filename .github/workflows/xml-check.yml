@@ -30,11 +30,14 @@ jobs:
       - name: Set FIRST_LINES variable
         id: first-lines
         run: |
-          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+          first_line=0  # Initialize the variable
+          for file in Lettre0102_16novembre1915.xml Lettre0103_14novembre1915.xml; do
             echo "Processing $file"
-            first_line++$(python .github/workflows/xml_check.py $file)
+            result=$(python .github/workflows/xml_check.py "$file")  # Run the script and capture the output
+            first_line=$((first_line + result))  # Add the output value to the variable
             echo "FIRST_LINES=$first_line" >> $GITHUB_ENV
           done
+
 
       - name: Create Issue on Error
         uses: lionelrrivas/github-issue-creator@v1.0.1
