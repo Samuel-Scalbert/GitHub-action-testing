@@ -39,7 +39,7 @@ jobs:
               if [[ $file == *.xml ]]; then
                   echo "Processing $file"
                   result=$(python .github/workflows/xml_check.py "$file")  # Run the script and capture the output
-                  if [[ -n $result ]]; then
+                  if [[ -n $result && $result != 'None' ]]; then
                       first_line="${first_line}<br>Le fichier $file n'a pas les balises :\`${result}\`<br>"
                       echo "FIRST_LINES=$first_line" >> $GITHUB_ENV
                   fi
