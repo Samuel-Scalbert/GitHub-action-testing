@@ -32,7 +32,7 @@ jobs:
         run: |
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             echo "Processing $file"
-            first_line=+$(python .github/workflows/xml_check.py $file)
+            first_line++$(python .github/workflows/xml_check.py $file)
             echo "FIRST_LINES=$first_line" >> $GITHUB_ENV
           done
 
