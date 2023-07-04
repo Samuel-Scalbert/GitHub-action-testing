@@ -37,11 +37,16 @@ jobs:
         run: |
           first_line=""  # Initialize the variable
           for file in  ${{ steps.changed-files.outputs.all_changed_files }}; do
-            echo "Processing $file"
-            result=$(python .github/workflows/xml_check.py "$file")  # Run the script and capture the output
-            first_line="${first_line}<br>* Le fichier $file n'a pas les balises :\`${result}\`<br>"
-            echo "FIRST_LINES=$first_line" >> $GITHUB_ENV
+              if [[ $file == *.xml ]]; then
+                  echo "Processing $file"
+                  result=$(python .github/workflows/xml_check.py "$file")  # Run the script and capture the output
+                  first_line="${first_line}<br>Le fichier $file n'a pas les balises :\`${result}\`<br>"
+                  echo "FIRST_LINES=$first_line" >> $GITHUB_ENV
+              else
+                  echo "Skipping $file - not an XML file"
+              fi
           done
+
 
 
       - name: Create Issue on Error
