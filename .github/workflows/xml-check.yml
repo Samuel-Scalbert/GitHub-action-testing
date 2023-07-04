@@ -22,6 +22,10 @@ jobs:
       - name: Install Modules
         run: |
           python -m pip install bs4 lxml
+          
+      - name: Get the version of the commits
+      - uses: hsblhsn/version-or-commit-sha@v1
+        id: get_version
 
       - name: Get changed files
         id: changed-files
@@ -46,7 +50,7 @@ jobs:
           title: Missing XML Tags
           body: |
             ${{ env.FIRST_LINES }}
-            the push : ${{ steps.changed-files.inputs.since_last_remote_commit }}
+            the push : ${{ steps.get_version.outputs.VERSION_OR_COMMIT_SHA }}
           assignees: |
             ${{ github.repository_owner }}
             ${{ github.actor }}
