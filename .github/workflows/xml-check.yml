@@ -25,7 +25,7 @@ jobs:
           
       - name: Get the version of the commits
         id: get_version
-        uses: hsblhsn/version-or-commit-sha@vmain
+        uses: hsblhsn/version-or-commit-sha@main
         
 
       - name: Get changed files
