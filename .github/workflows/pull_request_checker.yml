@@ -27,5 +27,6 @@ jobs:
       - name: Post comment
         uses: KeisukeYamashita/create-comment@main
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           comment: |
             yo je suis là
