@@ -12,11 +12,10 @@ jobs:
     name: The xml_checker tests all changed-files from the pull-request
 
     steps:
-      - name: Comment PR
-        uses: thollander/actions-comment-pull-request@v2
-        with:
-          message: |
-            Hello before you can merge your pull request we need to check if your files are correct ! :wave:
+      - uses: GetDutchie/github-action-delete-comment@v1.0.0
+        with: 
+          github_token: ${{ secrets.DUTCHIE_BOT_TOKEN }}
+          delete_user_name: github-actions[bot]
 
       - uses: actions/checkout@v3
         with:
@@ -60,7 +59,6 @@ jobs:
         id: pr
         run: |
           echo "::set-output name=pr_number::${{ github.event.pull_request.number }}"
-          echo "::set-output name=issue_number::${{ github.event.issue.number }}"
 
       - name: Create an Error comment
         if: ${{ env.BAD_FILES != '' }}
@@ -68,7 +66,6 @@ jobs:
         with:
           message: |
             We have a problem! :wave:
-            Look at this issue please: ${{ github.repository }}/issues/${{ steps.pr.outputs.issue_number }}
 
       - name: Create Issue on Error
         if: ${{ env.BAD_FILES != '' }}
