@@ -9,7 +9,7 @@ jobs:
   Pull_request_checker:
   
     runs-on: ubuntu-latest
-    name: Test changed-files
+    name: The xml_checker test all changed-files from the pull-request
     permissions:
       pull-requests: read
 
