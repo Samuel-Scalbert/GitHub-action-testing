@@ -25,8 +25,7 @@ jobs:
           done
           
       - name: Post comment
-        uses: KeisukeYamashita/create-comment@main
+        uses: JoseThen/comment-pr@v1.1.1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          comment: |
-            yo je suis là
+          comment: 'This PR is the bees knees!'
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
