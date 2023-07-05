@@ -9,7 +9,6 @@ on:
 jobs:
   Pull_request_checker:
     runs-on: ubuntu-latest
-    name: The xml_checker tests all changed-files from the pull-request
 
     steps:
     
