@@ -11,8 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     name: The xml_checker test all changed-files from the pull-request
     
-    permissions:
-          pull-requests: read
+    permissions: read-all|write-all
           
     steps:
       - name: Get changed files
