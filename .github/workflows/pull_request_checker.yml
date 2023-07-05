@@ -25,7 +25,7 @@ jobs:
           done
           
       - name: Post comment
-        uses: KeisukeYamashita/create-comment@v1
+        uses: KeisukeYamashita/create-comment@main
         with:
           comment: |
             yo je suis là
