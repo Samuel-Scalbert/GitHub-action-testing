@@ -3,7 +3,7 @@ name: Pull request checker
 on:
   pull_request:
     types:
-        - opened
+      - opened
 
 jobs:
   job1:
