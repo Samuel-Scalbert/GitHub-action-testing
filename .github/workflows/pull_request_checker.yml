@@ -73,7 +73,7 @@ jobs:
         if: ${{ env.BAD_FILES != '' }}
         uses: thollander/actions-comment-pull-request@v2
         with:
-         filePath: .github/worflows/error_comment.md
+         filePath: .github/workflows/error_comment.md
          
       - name: Create Issue on Error
         if: ${{ env.BAD_FILES != '' }}
