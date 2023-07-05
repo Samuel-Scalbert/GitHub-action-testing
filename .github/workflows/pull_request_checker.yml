@@ -12,6 +12,7 @@ jobs:
     name: The xml_checker tests all changed-files from the pull-request
 
     steps:
+      - name: Deleting old comments from the bot 
       - uses: GetDutchie/github-action-delete-comment@v1.0.0
         with: 
           github_token: ${{ secrets.GITHUB_TOKEN }}
