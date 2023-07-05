@@ -10,10 +10,9 @@ jobs:
   Pull_request_checker:  
     runs-on: ubuntu-latest
     name: The xml_checker test all changed-files from the pull-request
-    
     permissions:
-      pull-requests: read|write
-          
+      pull-requests: read
+
     steps:
       - name: Get changed files
         id: changed-files
@@ -24,10 +23,9 @@ jobs:
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             echo "$file was changed"
           done
-          
+      
       - name: Comment PR
         uses: thollander/actions-comment-pull-request@v2
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           message: |
             Hello world ! :wave:
