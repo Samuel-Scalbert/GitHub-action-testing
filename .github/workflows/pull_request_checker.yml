@@ -73,9 +73,8 @@ jobs:
         if: ${{ env.BAD_FILES != '' }}
         uses: thollander/actions-comment-pull-request@v2
         with:
-          message: |
-            We have a problem! :wave:
-
+         filePath: .github/worflows/error_comment.md
+         
       - name: Create Issue on Error
         if: ${{ env.BAD_FILES != '' }}
         uses: lionelrrivas/github-issue-creator@v1.0.1
