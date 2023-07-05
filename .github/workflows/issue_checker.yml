@@ -1,4 +1,4 @@
-name: XML_CHECKeR
+name: Issue checker
 
 on:
   push:
