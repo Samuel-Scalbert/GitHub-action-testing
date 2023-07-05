@@ -6,7 +6,7 @@ on:
       - opened
 
 jobs:
-  job1:
+  Pull_request_checker:
   
     runs-on: ubuntu-latest
     name: Test changed-files
