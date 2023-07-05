@@ -5,14 +5,16 @@ on:
     types:
       - opened
       - reopened
-   
+      
+permissions:
+            pull-requests: read | writte   
+            
 jobs:
   Pull_request_checker:  
     runs-on: ubuntu-latest
     name: The xml_checker test all changed-files from the pull-request
    
-    permissions:
-            pull-requests: read | writte
+    
     steps:
       - name: Get changed files
         id: changed-files
