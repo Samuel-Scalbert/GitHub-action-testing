@@ -89,3 +89,7 @@ jobs:
           assignees: |
             ${{ github.repository_owner }}
             ${{ github.actor }}
+            
+      - name: Exit with an error
+        if: ${{ env.BAD_FILES != '' }}
+        run: exit 1
