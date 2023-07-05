@@ -16,7 +16,7 @@ jobs:
         uses: thollander/actions-comment-pull-request@v2
         with:
           message: |
-            Hello world 2 ! :wave:
+            Hello before you can merge your pull request we need to check if your files are correct ! :wave:
 
       - uses: actions/checkout@v3
         with:
@@ -58,7 +58,9 @@ jobs:
 
       - name: Retrieve Pull Request
         id: pr
-        run: echo "::set-output name=issue_number::${{ github.event.pull_request.number }}"
+        run: |
+          echo "::set-output name=pr_number::${{ github.event.pull_request.number }}"
+          echo "::set-output name=issue_number::${{ github.event.issue.number }}"
 
       - name: Create an Error comment
         if: ${{ env.BAD_FILES != '' }}
@@ -77,6 +79,7 @@ jobs:
           body: |
             ${{ env.BAD_FILES }}
             Push version: ${{ steps.get_version.outputs.VERSION_OR_COMMIT_SHA }}
+            Look at this PR : ${{ github.repository }}/issues/${{ steps.pr.outputs.pr_number }}
           assignees: |
             ${{ github.repository_owner }}
             ${{ github.actor }}
