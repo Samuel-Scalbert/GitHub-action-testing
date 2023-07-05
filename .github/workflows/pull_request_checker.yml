@@ -23,3 +23,9 @@ jobs:
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             echo "$file was changed"
           done
+          
+      - name: Post comment
+        uses: KeisukeYamashita/create-comment@v1
+        with:
+          comment: |
+            yo je suis là
