@@ -8,7 +8,7 @@ on:
 jobs:
   xml_checker:
     runs-on: ubuntu-latest
-    name: Test changed-files in the repository
+    name: The xml_checker test all the changed-files with the push
     steps:
       - uses: actions/checkout@v3
         with:
