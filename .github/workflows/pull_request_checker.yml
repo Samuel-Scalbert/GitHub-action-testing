@@ -54,10 +54,10 @@ jobs:
               echo "Processing $file"
               result=$(python .github/workflows/xml_check.py "$file")
               echo "$result"
-              if [[ -n $result && $result != 'None' ]]; then
-                bad_file="<br>${result}<br>"
-                echo "BAD_FILES=$bad_file" >> $GITHUB_ENV
-              fi
+                if [[ -n $result && $result != 'None' ]]; then
+                  bad_file="<br>${result}<br>"
+                  echo "BAD_FILES=$bad_file" >> $GITHUB_ENV
+                fi
             else
               echo "Skipping $file - not an XML file"
             fi
