@@ -11,10 +11,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    
       - name: Retrieve Pull Request
         id: pr
         run: |
-          echo "pr_number=${{ github.event.pull_request.number }}" >> "$GITHUB_ENV"
+          echo "pr_number=${{ github.event.pull_request.number }}" >> $GITHUB_ENV
           
       - name: Deleting old comments from the bot 
         uses: GetDutchie/github-action-delete-comment@v1.0.0
@@ -47,37 +48,32 @@ jobs:
       - name: Verification of the files with the python script
         id: first-lines
         run: |
-          bad_files=""
+          bad_file=""
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             if [[ $file == *.xml ]]; then
               echo "Processing $file"
               result=$(python .github/workflows/xml_check.py "$file")
-              echo "$result"
               if [[ -n $result && $result != 'None' ]]; then
-                # Format the files list
-                formatted_files="${result#\[}"
-                formatted_files="${formatted_files%\]}"
-                formatted_files="${formatted_files//\'}"
-                formatted_files="${formatted_files//, /$'\n'}"
-                echo "formatted_files=$formatted_files" >> "$GITHUB_ENV"
+                bad_file="${bad_file}<br>Le fichier $file n'a pas les balises :\`${result}\`<br>"
+                echo "BAD_FILES=$bad_file" >> $GITHUB_ENV
               fi
             else
               echo "Skipping $file - not an XML file"
             fi
           done
       
-      - name: Create a Success comment
+      - name: Create a Succes comment
         if: ${{ env.BAD_FILES == '' }}
         uses: thollander/actions-comment-pull-request@v2
         with:
           message: |
-            Good job! Your files are well encoded. You can merge your pull request! 🔥🔥🔥🔥🔥
+            Good Job your files are well encoded, you can merge your pull request ! :fire::fire::fire::fire::fire:
       
       - name: Create an Error comment
         if: ${{ env.BAD_FILES != '' }}
         uses: thollander/actions-comment-pull-request@v2
         with:
-          filePath: .github/workflows/error_comment.md
+         filePath: .github/workflows/error_comment.md
          
       - name: Create Issue on Error
         if: ${{ env.BAD_FILES != '' }}
@@ -86,11 +82,11 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           title: Missing XML Tags
           body: |
-            ${{ env.formatted_files }}
+            ${{ env.BAD_FILES }}
             Push version: ${{ steps.get_version.outputs.VERSION_OR_COMMIT_SHA }}
-            Look at this PR: ${{ github.repository }}/issues/${{ env.pr_number }}
+            Look at this PR : ${{ github.repository }}/issues/${{ env.pr_number }}
           assignees: |
-            ${{ githubrepository_owner }}
+            ${{ github.repository_owner }}
             ${{ github.actor }}
             
       - name: Exit with an error
