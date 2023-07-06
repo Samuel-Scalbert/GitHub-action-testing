@@ -139,8 +139,7 @@ def xml_checker(file_path):
                     error_msg.append(f"The date tag '{date_tag}' is missing the 'when' or 'when-iso' attribute.")
 
             if len(error_msg) >= 1:
-                error_msg = [str(msg) for msg in error_msg]  # Convert error messages to strings
-                return '\n'.join(error_msg)
+                return (error_msg)
             else:
                 return None
 
