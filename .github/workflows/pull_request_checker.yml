@@ -55,7 +55,14 @@ jobs:
               result=$(python .github/workflows/xml_check.py "$file")
               echo "$result"
                 if [[ -n $result && $result != 'None' ]]; then
-                  echo "BAD_FILES=$result" >> $GITHUB_ENV
+                  formatted_files="{{$result#\[}}"
+                  formatted_files="${formatted_files%\]}"
+
+                  # Supprimer les apostrophes entourant les éléments
+                  formatted_files="${formatted_files//\'}"
+
+                  # Ajouter un saut de ligne entre chaque élément
+                  "formatted_files="${formatted_files//, /$'\n'}" >> GITHUB_ENV
                 fi
             else
               echo "Skipping $file - not an XML file"
@@ -82,7 +89,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           title: Missing XML Tags
           body: |
-            ${{ env.BAD_FILES }}
+            ${{ env.formatted_files }}
             Push version: ${{ steps.get_version.outputs.VERSION_OR_COMMIT_SHA }}
             Look at this PR : ${{ github.repository }}/issues/${{ env.pr_number }}
           assignees: |
