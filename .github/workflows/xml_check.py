@@ -10,9 +10,8 @@ def xml_checker(file_path):
             tags = ['titleStmt', 'encodingDesc', 'text', 'TEI', 'lb', 'div', 'body', 'profileDesc',
                     'authority', 'principal', 'availability', 'publicationStmt']
             for tag in tags:
-                    if not soup.find(tag):
-                        error = ['lacking the tag :', tag]
-                        error_msg.append(error)
+                if not soup.find(tag):
+                    error_msg.append(f"lacking the tag :{tag}")
 
             filedesc_tag = soup.find("fileDesc")
             if not filedesc_tag:
@@ -140,7 +139,8 @@ def xml_checker(file_path):
                     error_msg.append(f"The date tag '{date_tag}' is missing the 'when' or 'when-iso' attribute.")
 
             if len(error_msg) >= 1:
-                return error_msg
+                error_msg = [str(msg) for msg in error_msg]  # Convert error messages to strings
+                return '\n'.join(error_msg)
             else:
                 return None
 
