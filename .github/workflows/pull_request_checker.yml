@@ -53,6 +53,7 @@ jobs:
             if [[ $file == *.xml ]]; then
               echo "Processing $file"
               result=$(python .github/workflows/xml_check.py "$file")
+              echo "$result"
               if [[ -n $result && $result != 'None' ]]; then
                 bad_file="${bad_file}<br>Le fichier $file présente ces problèmes:\`${result}\`<br>"
                 echo "BAD_FILES=$bad_file" >> $GITHUB_ENV
