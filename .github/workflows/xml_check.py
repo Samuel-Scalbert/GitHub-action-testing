@@ -152,14 +152,5 @@ if __name__ == "__main__":
     file_path = sys.argv[1]
 
     result = xml_checker(file_path)
-    if result is not None:
-        if isinstance(result, str):
-            print(result)  # Print the error message as a single line
-        elif isinstance(result, list):
-            for error in result:
-                if isinstance(error, str):
-                    print(error)  # Print each error message in the list on a new line
-                elif isinstance(error, list):
-                    print(' '.join(error))  # Join the elements of the error sublist and print as a single line
-        else:
-            print("Unknown error format.")
+    print(result)
+
