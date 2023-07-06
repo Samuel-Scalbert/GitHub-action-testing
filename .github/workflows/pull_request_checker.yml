@@ -82,7 +82,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           title: Missing XML Tags
           body: |
-            ${{ env.BAD_FILES }}
+            python -c 'print(" ".join([str(elem) for elem in ${{ env.BAD_FILES }} ))'
             Push version: ${{ steps.get_version.outputs.VERSION_OR_COMMIT_SHA }}
             Look at this PR : ${{ github.repository }}/issues/${{ env.pr_number }}
           assignees: |
