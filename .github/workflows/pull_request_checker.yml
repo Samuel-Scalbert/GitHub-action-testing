@@ -53,10 +53,10 @@ jobs:
             if [[ $file == *.xml ]]; then
               echo "Processing $file"
               result=$(python .github/workflows/xml_check.py "$file")
-              if [[ -n $result && $result != 'None' ]]; then
-                bad_file="${bad_file}<br>Le fichier $file n'a pas les balises :\`${result}\`<br>"
-                echo "BAD_FILES=$bad_file" >> $GITHUB_ENV
-              fi
+              echo "$result"
+                if [[ -n $result && $result != 'None' ]]; then
+                  echo "BAD_FILES=$result" >> $GITHUB_ENV
+                fi
             else
               echo "Skipping $file - not an XML file"
             fi
