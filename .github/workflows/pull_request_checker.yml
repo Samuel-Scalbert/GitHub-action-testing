@@ -52,7 +52,8 @@ jobs:
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             if [[ $file == *.xml ]]; then
               echo "Processing $file"
-              result=$(python .github/workflows/xml_check.py "$file")
+              result=$(python .github/workflows/xml_check.py "$file")$
+              echo $result
               if [[ -n $result && $result != 'None' ]]; then
                 bad_file="${bad_file}<br>Le fichier $file n'a pas les balises :\`${result}\`<br>"
                 echo "BAD_FILES=$bad_file" >> $GITHUB_ENV
