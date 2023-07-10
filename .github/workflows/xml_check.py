@@ -11,7 +11,7 @@ def xml_checker(file_path):
                     'authority', 'principal', 'availability', 'publicationStmt']
             for tag in tags:
                 if not soup.find(tag):
-                    error_msg.append(f"The following tag is missing:{tag}")
+                    error_msg.append(f"The following tag is missing:\{tag}")
 
             filedesc_tag = soup.find("fileDesc")
             if not filedesc_tag:
