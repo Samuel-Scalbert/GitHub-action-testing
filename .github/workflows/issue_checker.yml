@@ -52,7 +52,8 @@ jobs:
               # Check if the result is not empty or 'None'
               if [[ -n $result && $result != 'None' ]]; then
                 # Append the result to a variable (using <br> for line breaks and "`...`" to display tags)
-                bad_file="${bad_file}<br>Le fichier $file n'a pas les balises :\`${result}\`<br>"
+                bad_file="${bad_file}##Le fichier $file:
+                ${result}<br>"
 
                 # Set the environment variable BAD_FILES
                 echo "BAD_FILES=$bad_file" >> $GITHUB_ENV
