@@ -142,7 +142,7 @@ def xml_checker(file_path):
                 if not any(attr in date_tag.attrs for attr in ['when', 'when-iso']):
                     error_msg.append(f"The date tag '{date_tag}' is missing the @when or @when-iso@ attribute.")
 
-        if len(error_msg) \>= 1:
+        if len(error_msg) >= 1:
             error_msg = [str(msg) for msg in error_msg]  # Convert error messages to strings
             error_string = ('\<br\>'.join(error_msg))
             return error_string
