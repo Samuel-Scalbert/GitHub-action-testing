@@ -2,6 +2,13 @@ import sys
 from bs4 import BeautifulSoup
 from datetime import datetime
 
+def get_line_number(soup, tag):
+    position = soup.new_tag('position')
+    tag.insert_before(position)
+    line_number = position.sourceline
+    position.extract()
+    return line_number
+
 def xml_checker(file_path):
         with open(file_path, "r") as file:
             soup = BeautifulSoup(file, features="xml")
@@ -11,7 +18,7 @@ def xml_checker(file_path):
                     'authority', 'principal', 'availability', 'publicationStmt']
             for tag in tags:
                 if not soup.find(tag):
-                    error_msg.append(f"The following tag is missing:<code>{tag}</code>")
+                    error_msg.append(f"The following tag is missing:<code>{tag}</code> Line: {get_line_number(soup, soup)}")
 
             filedesc_tag = soup.find("fileDesc")
             if not filedesc_tag:
