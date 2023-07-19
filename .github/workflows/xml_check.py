@@ -56,9 +56,8 @@ def xml_checker(file_path):
             p_tags = soup.find_all('p')
             for p_tag in p_tags:
                 if p_tag.attrs == "rend":
-                  if p_tag["rend"] not in ["right", "center", "left"]:
+                  if p_tag["rend"] not in ['align(right)', 'align(center)', 'align(left)']:
                     error_msg.append("A <code>\<p\></code> tag is missing a valid attribute value, as it should either be <code>@rend='right,center,left'</code>")
-                          #Le tag \<p\> ne devrait pas être align(right), (center) or (left) ? J'ai fait une erreur quelque part ?
 
             revisionDesc_tags = soup.find_all('revisionDesc')
             for revisionDesc_tag in revisionDesc_tags:
@@ -84,9 +83,8 @@ def xml_checker(file_path):
             note_tags = soup.find_all('note')
             for note_tag in note_tags:
                 if note_tag.get('type') in ['folliation', 'gloss'] or note_tag.attrs == {'hand': True}:
-                    if note_tags['rend'] not in ['right', 'center', 'left'] or note_tag['place']=='top':
+                    if note_tags['rend'] not in ['align(right)', 'align(center)', 'align(left)'] or note_tag['place']=='top':
                         error_msg.append("A <code>\<note\></code> tag with the attribute <code>@foliation'</code> and a <code>@rend</code> attribute has a wrong rend values (either 'right', 'center' or 'left' is allowed")
-                            #Une fois encore, ça devrait être align(center), etc. non ?
 
             hi_tags = soup.find_all('hi')
             for hi_tag in hi_tags:
@@ -121,15 +119,14 @@ def xml_checker(file_path):
                         error_msg.append(
                             f"The <code>\<{tag_name}\></code> tag '{tag.text}' '{rend_value}' has an incorrect format for the <code>@rend</code> attribute. Valid formats: {rend_formats}")
 
-            tw_tags = soup.find_all('tw')
-            for tw_tag in tw_tags:
-                if tw_tag.get('type') == 'letterhead' and tw_tag.get('place') in ['top(right)', 'top(center)']:
-                    rend_value = tw_tag.get('rend')
+            fw_tags = soup.find_all('fw')
+            for fw_tag in fw_tags:
+                if fw_tag.get('type') == 'letterhead' and fw_tag.get('place') in ['top(right)', 'top(center)']:
+                    rend_value = fw_tag.get('rend')
                     if rend_value is not None and rend_value not in ['align(right)', 'align(center)', 'align(left)']:
                         error_msg.append(
-                            f"The <code>\<tw\></code> tag with the content '{tw_tag.text}' with <code>@type='letterhead'</code> and <code>@place='{tw_tag.get('place')}'</code> has an incorrect format for the <code>@rend</code> attribute. Valid formats: align(right), align(center), align(left)")
-                            #Je ne sais pas à combien d'endroits tu l'as mis mais c'est \<fw\> le tag, donc il faudra que tu changes pour la valeur et pour la variable
-
+                            f"The <code>\<fw\></code> tag with the content '{fw_tag.text}' with <code>@type='letterhead'</code> and <code>@place='{fw_tag.get('place')}'</code> has an incorrect format for the <code>@rend</code> attribute. Valid formats: align(right), align(center), align(left)")
+                        
             metamark_tags = soup.find_all('metamark')
             for metamark_tag in metamark_tags:
                 style_value = metamark_tag.get('style')
