@@ -135,10 +135,10 @@ def xml_checker(file_path):
                                                                    'double_line', 'vertical_rule',
                                                                    'curved_horizontal_line']:
                     error_msg.append(
-                        f"The <code>\<metamark\></code> tag '{metamark_tag.text}' has an incorrect format for the <code>@style</code> attribute. Valid formats: x, horizontal_rule, crosses, dots, line, double_line, vertical_rule, curved_horizontal_line")
+                        f"The <code>\<metamark\></code> attribute '{style_value}' has an incorrect format for the <code>@style</code> attribute. Valid formats: x, horizontal_rule, crosses, dots, line, double_line, vertical_rule, curved_horizontal_line")
                 if rend_value is not None and rend_value not in ['align(right)', 'align(center)', 'align(left)']:
                     error_msg.append(
-                        f"The <code>\<metamark\></code> tag '{metamark_tag.text}' has an incorrect format for the 'rend' attribute. Valid formats: align(right), align(center), align(left)")
+                        f"The <code>\<metamark\></code> attribute '{rend_value}' has an incorrect format for the 'rend' attribute. Valid formats: align(right), align(center), align(left)")
                         #Je crois que la balise \<metamark\> est généralement une balise vide donc il n'y a pas de texte dedans à mon avis (à vérifier)
 
             date_tags = soup.find_all('date')
